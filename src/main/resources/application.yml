@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: user-ms
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource: 
+    username: ibm
+    password: ibm
+    url: jdbc:h2:mem:userDB;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+   
+jwt:
+  secret: secretkey123
+  get:
+    token:
+      uri: /authenticate
+      
+jwt.token.validity.minuite: 30
+
+server:
+  port: 8300  
+  
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${random.int}
+    leaseRenewalIntervalInSeconds: 2
+    leaseExpirationDurationInSeconds: 5
+    preferIpAddress: true
+    metadata-map:
+      zone: A
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    prefer-same-zone-eureka: true
+    serviceUrl:
+      defaultZone: ${eureka.uri:http://192.168.99.100:8100/eureka}
